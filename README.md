@@ -1,6 +1,6 @@
 # AutoPcr Web Vue
 
-New vue3-based frontend for @cc004/autopcr.
+New vue3-based frontend for [@cc004/autopcr](https://github.com/cc004/autopcr).
 
 
 ## Project Setup
