@@ -2,9 +2,8 @@ name: Build CI
 on:
   push:
     branches:
-      - master
-    tags-ignore:
-      - "v*.*.*"
+      - dev
+  workflow_dispatch:
 
 jobs:
   build:

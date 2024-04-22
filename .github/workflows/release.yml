@@ -1,8 +1,8 @@
 name: Build Release
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -26,9 +26,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - uses: nyaa8/package-version@v1
+        with:
+          path: 'package.json'
+          follow-symlinks: 'false'
+
       - name: Zip dist
         run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
+          TAG_NAME=${{ env.PACKAGE_VERSION }}
           FILE_NAME=autopcr_web_vue-release_${TAG_NAME}.zip
           echo "filename=${FILE_NAME}" >> $GITHUB_ENV
           cd dist && zip -r ../${FILE_NAME}.zip .
@@ -36,4 +41,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
+          name: ${{ env.PACKAGE_VERSION }}
+          tag_name: ${{ env.PACKAGE_VERSION }}
           files: ${{ env.FILE_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
