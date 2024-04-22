@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: dev
 
       - name: Get commit hash
         run: echo "hash=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV

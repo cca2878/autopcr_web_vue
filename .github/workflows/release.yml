@@ -26,11 +26,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - uses: nyaa8/package-version@v1
-        with:
-          path: 'package.json'
-          follow-symlinks: 'false'
-
       - name: Get version
         id: pv
         uses: martinbeentjes/npm-get-version-action@v1.3.1
@@ -49,5 +44,3 @@ jobs:
           tag_name: v${{ steps.pv.outputs.current-version}}
           files: ${{ env.filename }}
           generate_release_notes: true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
