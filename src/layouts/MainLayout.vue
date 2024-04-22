@@ -13,12 +13,12 @@ import { APP_VERSION } from '../utils'
 
 const store = useStore()
 const username = computed(() => store.username)
-const drawerVisible = ref(false)
+// const drawerVisible = ref(false)
 const modDialogVisible = ref(false)
 
-const toggleDrawer = () => {
-  drawerVisible.value = !drawerVisible.value
-}
+// const toggleDrawer = () => {
+//   drawerVisible.value = !drawerVisible.value
+// }
 const toggleModDialog = () => {
   modDialogVisible.value = !modDialogVisible.value
 }
@@ -74,7 +74,7 @@ const confirmLogout = (username) => {
     <el-main>
       <router-view />
     </el-main>
-    <el-footer style="height: 24px; display: flex; align-items: center; justify-content: space-between">
+    <el-footer style="height: 24px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--el-border-color);">
       <el-text size="small" type="info">ver: {{ APP_VERSION }}</el-text>
       <el-link href="https://github.com/cca2878/autopcr_web_vue" style="font-size: small" target="_blank" type="info">
         @cca2878/autopcr_web_vue
