@@ -136,8 +136,20 @@ onMounted(() => {
     <!--      <el-button type="primary" @click="show = !show">Operation</el-button>-->
     <!--    </template>-->
 
-    <el-row align="middle" justify="space-around">
-      <el-col :span="20" style="display: flex; align-items: center">
+<!--    <el-row align="middle" justify="space-around">-->
+<!--      <el-col :span="19" style="display: flex; align-items: center">-->
+
+<!--        &lt;!&ndash;        <el-divider direction="vertical"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <el-text>上次执行</el-text>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <el-divider border-style="hidden" direction="vertical" style="margin: 0 4px"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <TimeStatusText :last_time="lastTaskText" :status="lastTaskInfo['status']" style="max-width: 100%"/>&ndash;&gt;-->
+<!--      </el-col>-->
+<!--      <el-col :span="5">-->
+
+<!--      </el-col>-->
+<!--    </el-row>-->
+    <div style="display: flex;justify-content: space-between; align-items: center">
+      <div style="display: flex; align-items: center">
         <el-text tag="b">{{ accAlias }}</el-text>
         <el-divider direction="vertical" />
         <el-text>上次清日常</el-text>
@@ -147,24 +159,18 @@ onMounted(() => {
           :status="lastDailyInfo['status']"
           style="max-width: 100%"
         />
-        <!--        <el-divider direction="vertical"/>-->
-        <!--        <el-text>上次执行</el-text>-->
-        <!--        <el-divider border-style="hidden" direction="vertical" style="margin: 0 4px"/>-->
-        <!--        <TimeStatusText :last_time="lastTaskText" :status="lastTaskInfo['status']" style="max-width: 100%"/>-->
-      </el-col>
-      <el-col :span="4">
-        <div style="text-align: right">
-          <el-button
-            :disabled="doing && !selfDoing"
-            :loading="selfDoing"
-            type="primary"
-            @click="doDaily(accAlias, true)"
-            >执行清日常
-          </el-button>
-          <el-button type="primary" @click="show = !show">展开/收起</el-button>
-        </div>
-      </el-col>
-    </el-row>
+      </div>
+      <div style="text-align: right">
+        <el-button
+          :disabled="doing && !selfDoing"
+          :loading="selfDoing"
+          type="primary"
+          @click="doDaily(accAlias, true)"
+        >执行清日常
+        </el-button>
+        <el-button type="primary" @click="show = !show">展开/收起</el-button>
+      </div>
+    </div>
     <el-collapse-transition>
       <el-row v-show="show" :gutter="20" style="padding-top: 20px">
         <el-col :sm="18">

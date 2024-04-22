@@ -9,6 +9,7 @@ import router from '@/router'
 import { ModProfileDialog } from '@/components/MainView/ModProfileDialog'
 import { postLogoutRequest } from '@/api'
 import logoSvg from '@/assets/autopcr.svg'
+import { APP_VERSION } from '../utils'
 
 const store = useStore()
 const username = computed(() => store.username)
@@ -73,26 +74,13 @@ const confirmLogout = (username) => {
     <el-main>
       <router-view />
     </el-main>
-    <el-footer style="height: 24px">Footer</el-footer>
+    <el-footer style="height: 24px; display: flex; align-items: center; justify-content: space-between">
+      <el-text size="small" type="info">ver: {{ APP_VERSION }}</el-text>
+      <el-link href="https://github.com/cca2878/autopcr_web_vue" style="font-size: small" target="_blank" type="info">
+        @cca2878/autopcr_web_vue
+      </el-link>
+    </el-footer>
   </el-container>
-  <!--  <el-container style="height: 100vh">-->
-  <!--    <el-aside class="aside" width="200px">-->
-  <!--      <main-menu/>-->
-  <!--    </el-aside>-->
-  <!--    <el-container>-->
-  <!--      <el-header class="tool-header justify-between">-->
-  <!--        <tool-header />-->
-
-  <!--      </el-header>-->
-  <!--      <el-scrollbar view-style="height: 100%">-->
-  <!--        <el-main style="height: 100%; display: flex">-->
-  <!--&lt;!&ndash;          <el-text v-for="i in 64" :key="i" size="large">Main<br/></el-text>&ndash;&gt;-->
-  <!--          <ConfigView/>-->
-  <!--        </el-main>-->
-  <!--      </el-scrollbar>-->
-  <!--    </el-container>-->
-
-  <!--  </el-container>-->
 </template>
 
 <style lang="scss">

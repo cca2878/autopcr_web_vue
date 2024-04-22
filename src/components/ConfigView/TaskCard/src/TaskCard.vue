@@ -109,12 +109,16 @@ const doSingle = (key, text_result) => {
         refreshTextResult(
           res.data.result[res.data.order[0]]['log'],
           res.data['time'],
-          res.data['status']
+          res.data.result[res.data.order[0]]['status']
+            ? res.data.result[res.data.order[0]]['status']
+            : res.data['status']
         )
       } else {
         resultIsText.value = false
         resultTime.value = res.data['time']
-        resultStatus.value = res.data['status']
+        resultStatus.value = res.data.result[res.data.order[0]]['status']
+          ? res.data.result[res.data.order[0]]['status']
+          : res.data['status']
         resultImage.value = res.data['image']
         resultText.value = res.data.result[res.data.order[0]]['log']
       }
@@ -180,7 +184,7 @@ onMounted(() => {
             <el-col :span="24">
               <el-space class="task-card-el-space" direction="vertical" fill>
                 <el-text tag="b">描述</el-text>
-                <el-text tag="p">{{ funcConfigInfo.description }} </el-text>
+                <el-text tag="p">{{ funcConfigInfo.description }}</el-text>
               </el-space>
             </el-col>
             <template v-if="Object.keys(funcConfigInfo.config).length !== 0">
@@ -190,8 +194,8 @@ onMounted(() => {
                   <div style="display: flex; justify-content: space-between">
                     <el-text tag="b">设置</el-text>
                     <el-button :disabled="doing" size="small" @click="resetConfig()"
-                      >恢复默认</el-button
-                    >
+                      >恢复默认
+                    </el-button>
                   </div>
                   <el-form
                     :disabled="doing"
