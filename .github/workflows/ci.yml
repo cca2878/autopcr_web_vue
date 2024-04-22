@@ -2,9 +2,10 @@ name: Build CI
 on:
   push:
     branches:
-      - master
-    tags-ignore:
-      - "v*.*.*"
+      - dev
+    paths:
+      - 'src/**'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: dev
 
       - name: Get commit hash
         run: echo "hash=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV
@@ -19,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ''
+          node-version: 'latest'
 
       - name: Set version
         run: |

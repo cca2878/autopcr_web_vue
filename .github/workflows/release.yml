@@ -1,8 +1,8 @@
 name: Build Release
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ''
+          node-version: 'latest'
 
       - name: Install dependencies
         run: npm ci
@@ -26,14 +26,21 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Get version
+        id: pv
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
       - name: Zip dist
         run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
+          TAG_NAME=${{ steps.pv.outputs.current-version}}
           FILE_NAME=autopcr_web_vue-release_${TAG_NAME}.zip
           echo "filename=${FILE_NAME}" >> $GITHUB_ENV
-          cd dist && zip -r ../${FILE_NAME}.zip .
+          cd dist && zip -r ../${FILE_NAME} .
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ env.FILE_NAME }}
+          name: Release-v${{ steps.pv.outputs.current-version}}
+          tag_name: v${{ steps.pv.outputs.current-version}}
+          files: ${{ env.filename }}
+          generate_release_notes: true
