@@ -44,5 +44,6 @@ jobs:
           name: Release-v${{ env.PACKAGE_VERSION }}
           tag_name: v${{ env.PACKAGE_VERSION }}
           files: ${{ env.filename }}
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
