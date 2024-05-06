@@ -6,10 +6,12 @@ import { timeStampedText, uniFormVali } from '@/utils'
 import { ElMessage, ElNotification } from 'element-plus'
 import { TimeStatusText } from '@/components/Common/TimeStatusText'
 import { useStore } from '@/stores'
+import { ArrowDown } from '@element-plus/icons-vue'
 
 const emit = defineEmits(['afterDoDaily'])
 
-const show = ref(false)
+const showModel = ref([])
+const show = computed(()=>showModel.value[0] === 1)
 const route = useRoute()
 const store = useStore()
 const accAlias = computed(() => route.params.acc)
@@ -89,7 +91,7 @@ const getAccount = (acc) => {
   getGetAccountRequest(acc).then((res) => {
     console.log(res.data)
     if (res.data['username'] === '') {
-      show.value = true
+      showModel.value[0] = 1
     }
     formModel.value.uname = res.data['username']
     gameInfo.value = res.data['game_info']
@@ -160,7 +162,7 @@ onMounted(() => {
           style="max-width: 100%"
         />
       </div>
-      <div style="text-align: right">
+      <div style="display: flex;align-items: center ; justify-content: right; gap: 4px">
         <el-button
           :disabled="doing && !selfDoing"
           :loading="selfDoing"
@@ -168,7 +170,13 @@ onMounted(() => {
           @click="doDaily(accAlias, true)"
         >执行清日常
         </el-button>
-        <el-button type="primary" @click="show = !show">展开/收起</el-button>
+        <el-checkbox-group v-model="showModel">
+          <el-checkbox-button :false-value="0" :value="1">
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
+          </el-checkbox-button>
+        </el-checkbox-group>
       </div>
     </div>
     <el-collapse-transition>

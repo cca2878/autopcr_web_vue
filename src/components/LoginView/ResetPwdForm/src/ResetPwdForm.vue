@@ -15,10 +15,10 @@ const formReset = reactive({
   pwd: '',
   checkPwd: ''
 })
-const resetMsg = {
-  success: '重置成功',
-  fail: '重置失败，请联系管理员'
-}
+// const resetMsg = {
+//   success: '重置成功',
+//   fail: '重置失败，请联系管理员'
+// }
 
 const updateHandler = (value) => {
   emit('update:dialogVisible', value)

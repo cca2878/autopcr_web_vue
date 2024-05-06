@@ -19,12 +19,12 @@ const router = createRouter({
           component: () => import('@/views/MainView'),
           meta: { title: 'AutoPCR - 首页' }
         },
-        {
-          path: 'devedit',
-          name: 'devedit',
-          component: () => import('@/views/ConfigView'),
-          meta: { title: 'AutoPCR - 任务' }
-        },
+        // {
+        //   path: 'devedit',
+        //   name: 'devedit',
+        //   component: () => import('@/views/ConfigView'),
+        //   meta: { title: 'AutoPCR - 任务' }
+        // },
         {
           path: ':acc',
           name: 'acc',

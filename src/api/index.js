@@ -1,6 +1,6 @@
 import deleteUpdateAccount from './src/deleteUpdateAccountRequest'
 import getGetInfoRequest from './src/getGetInfoRequest'
-import getDailyResultRequest from './src/getDailyResultRequest'
+import getGetDailyResultRequest from './src/getGetDailyResultRequest'
 import postQQLoginRequest from './src/postQQLoginRequest'
 import getGetAccountRequest from './src/getGetAccountRequest'
 import putUpdateAccountRequest from './src/putUpdateAccountRequest'
@@ -12,11 +12,12 @@ import postDoSingleRequest from './src/postDoSingleRequest'
 import postDoDailyRequest from './src/postDoDailyRequest'
 import postModifyProfileRequest from './src/postModifyProfileRequest'
 import postLogoutRequest from './src/postLogoutRequest'
+import getGetToolsResultRequest from './src/getGetToolsResultRequest'
 
 export {
   deleteUpdateAccount,
   getGetInfoRequest,
-  getDailyResultRequest,
+  getGetDailyResultRequest,
   postQQLoginRequest,
   getGetAccountRequest,
   putUpdateAccountRequest,
@@ -27,5 +28,6 @@ export {
   postDoSingleRequest,
   postDoDailyRequest,
   postModifyProfileRequest,
-  postLogoutRequest
+  postLogoutRequest,
+  getGetToolsResultRequest
 }

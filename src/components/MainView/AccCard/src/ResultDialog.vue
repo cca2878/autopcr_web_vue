@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineEmits, defineProps, ref, watch } from 'vue'
-import { getDailyResultRequest } from '@/api'
+import { getGetDailyResultRequest } from '@/api'
 import { Clock, Picture, Tickets } from '@element-plus/icons-vue'
 import { TimeStatusText } from '../../../Common/TimeStatusText'
 import DailyResultView from './DailyResultView.vue'
@@ -34,7 +34,7 @@ const showDialog = computed({
 
 const getDailyResult = (acc, result_id, text_result = undefined) => {
   loading.value = true
-  getDailyResultRequest(acc, result_id, text_result)
+  getGetDailyResultRequest(acc, result_id, text_result)
     .then((res) => {
       // const blob = new Blob([res.data], {type: 'image/jpeg'})
       // imageUrl.value = URL.createObjectURL(blob)

@@ -50,9 +50,14 @@ const apiList = {
       address: `/account/${acc}/do_single`,
       method: 'post'
     }),
-  getDailyResult: (acc, result_id) =>
+  getGetDailyResult: (acc, result_id) =>
     prependAddressBase({
       address: `/account/${acc}/daily_result/${result_id}`,
+      method: 'get'
+    }),
+  getGetToolsResult: (acc) =>
+    prependAddressBase({
+      address: `/account/${acc}/tools_result`,
       method: 'get'
     }),
   postDoDaily: (acc) =>

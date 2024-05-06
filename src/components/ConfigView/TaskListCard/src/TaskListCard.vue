@@ -1,9 +1,10 @@
 <script setup>
 import { defineEmits, onMounted, ref, watch } from 'vue'
 import { TaskCard } from '@/components/ConfigView/TaskCard'
-import { getDailyResultRequest, getGetDailyConfigRequest, getGetToolsConfigRequest } from '@/api'
+import { getGetDailyResultRequest, getGetDailyConfigRequest, getGetToolsConfigRequest } from '@/api'
 import { useRoute } from 'vue-router'
 import { Guide } from '@element-plus/icons-vue'
+import getGetToolsResultRequest from '../../../../api/src/getGetToolsResultRequest'
 
 const route = useRoute()
 const dailyConfig = ref({})
@@ -22,13 +23,24 @@ const navToolsMap = ref([])
 const emit = defineEmits(['afterDoSingle'])
 
 const getDailyResult = (acc, result_id, text_result = undefined) => {
-  getDailyResultRequest(acc, result_id, text_result).then((res) => {
+  getGetDailyResultRequest(acc, result_id, text_result).then((res) => {
     // const blob = new Blob([res.data], {type: 'image/jpeg'})
     // imageUrl.value = URL.createObjectURL(blob)
     Object.keys(res.data['result']).forEach((key) => {
       if (dailyCardRefs.value[key]) {
         let item = res.data['result'][key]
         dailyCardRefs.value[key].refreshTextResult(item['log'], item['time'], item['status'])
+      }
+    })
+  })
+}
+
+const getToolsResult = (acc) =>{
+  getGetToolsResultRequest(acc).then((res) => {
+    Object.keys(res.data['result']).forEach((key) => {
+      if (toolCardRefs.value[key]) {
+        let item = res.data['result'][key]
+        toolCardRefs.value[key].refreshTextResult(item['log'], item['time'], item['status'])
       }
     })
   })
@@ -95,6 +107,7 @@ onMounted(() => {
   getDailyConfig()
   getToolsConfig()
   getDailyResult(route.params.acc, 0, true)
+  getToolsResult(route.params.acc)
   navMap.value = navDailyMap.value
   activeScroll.value = dailyScroll.value
   watch(selectedTab, (newVal) => {
@@ -119,7 +132,7 @@ onMounted(() => {
       <el-select-v2
         v-model="navSelected"
         :options="navMap"
-        class="custom-component"
+        class="float-nav"
         filterable
         @change="handleScroll"
       >
@@ -179,10 +192,10 @@ onMounted(() => {
   position: relative;
 }
 
-.custom-component {
+.float-nav {
   position: absolute;
   width: 20%;
-  min-width: 200px;
+  min-width: 120px;
   top: 4px;
   right: 0;
   z-index: 3;

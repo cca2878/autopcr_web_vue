@@ -1,8 +1,8 @@
 import axiosInstance from '@/http/request'
 import apiList from '@/http/apiList'
 
-const getDailyResultRequest = (acc, result_id, text_result) => {
-  const getDailyResult = apiList.getDailyResult(acc, result_id, text_result)
+const getGetDailyResultRequest = (acc, result_id, text_result) => {
+  const getDailyResult = apiList.getGetDailyResult(acc, result_id, text_result)
 
   const getDailyResultConfig = {
     method: getDailyResult.method,
@@ -14,4 +14,4 @@ const getDailyResultRequest = (acc, result_id, text_result) => {
   return axiosInstance(getDailyResultConfig)
 }
 
-export default getDailyResultRequest
+export default getGetDailyResultRequest

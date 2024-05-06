@@ -5,7 +5,7 @@ import { computed, defineExpose, defineProps, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { postDoSingleRequest, putPutConfigRequest } from '@/api'
 import { ElMessage, ElNotification } from 'element-plus'
-import { Picture, Tickets, Tools, VideoPlay } from '@element-plus/icons-vue'
+import { ArrowDown, Picture, Tickets, Tools, VideoPlay } from '@element-plus/icons-vue'
 import FuncResultView from './TaskResultView.vue'
 
 import { timeStampedText } from '@/utils'
@@ -15,7 +15,8 @@ import { useStore } from '@/stores'
 const route = useRoute()
 const store = useStore()
 const acc = ref('')
-const show = ref(false)
+const showModel = ref([])
+const show = computed(()=>showModel.value[0] === 1)
 const formModel = ref({})
 const switchModel = ref(false)
 // const resultNeedText = ref(true)
@@ -45,7 +46,7 @@ watch(
   () => switchModel.value,
   (newVal) => {
     if (newVal) {
-      show.value = true
+      showModel.value[0] = 1
     }
   }
 )
@@ -165,16 +166,23 @@ onMounted(() => {
         <!--        <el-divider border-style="hidden" direction="vertical" style="margin: 0 4px"></el-divider>-->
         <!--        <el-text>1919-8-10 11:45:14</el-text>-->
       </div>
-      <div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 4px">
         <el-button
           :disabled="doing && !selfDoing"
           :icon="VideoPlay"
           :loading="selfDoing"
           type="primary"
           @click="doSingle(props.configInfo.key, resultIsText)"
-          >单项执行
+        >单项执行
         </el-button>
-        <el-button type="primary" @click="show = !show">展开/收起</el-button>
+        <!--        <el-button type="primary" @click="show = !show">展开/收起</el-button>-->
+        <el-checkbox-group v-model="showModel">
+          <el-checkbox-button :false-value="0" :value="1">
+            <el-icon>
+              <ArrowDown />
+            </el-icon>
+          </el-checkbox-button>
+        </el-checkbox-group>
       </div>
     </div>
     <el-collapse-transition>
@@ -194,7 +202,7 @@ onMounted(() => {
                   <div style="display: flex; justify-content: space-between">
                     <el-text tag="b">设置</el-text>
                     <el-button :disabled="doing" size="small" @click="resetConfig()"
-                      >恢复默认
+                    >恢复默认
                     </el-button>
                   </div>
                   <el-form
@@ -277,6 +285,15 @@ onMounted(() => {
                             :value="option"
                           />
                         </el-select>
+                      </template>
+                      <template v-else-if="funcConfigInfo.config[`${item}`].config_type === 'text'">
+                        <el-input
+                          v-model="formModel[`${item}`]"
+                          :rows="3"
+                          style="width: 100%"
+                          type="textarea"
+                          @change="putConfig({ [`${item}`]: formModel[`${item}`] })"
+                        />
                       </template>
                     </el-form-item>
                   </el-form>
